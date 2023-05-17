@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos articles{% endblock %}
+
+{% block body %}
+
+{%
+
+set article = {
+
+    'title' : 'article numéro',
+    'intro' : 'ceci est une super intro',
+    'author' : 'gwen guého',
+    'image' : 'https://www.webnode.com/blog/wp-content/uploads/2019/04/blog2.png',
+ 
+}
+
+%}
+
+<div class="row flex-lg-row flex-xl-row flex-column">
+
+    {% for i in 1..10 %}
+        {% include './partials/card.article.html.twig' %}
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

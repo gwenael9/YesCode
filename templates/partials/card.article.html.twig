@@ -1,6 +1,10 @@
 <div class="col-xl-4 col-lg-4 col-md-8 col-sm-12 m-auto text-center">
     <div class="card bg-light my-5 shadow ">
-        <h3 class="card-header">{{article.title | title}}</h3>
+    {% if i %}
+        <h3 class="card-header">{{article.title | title}} : {{i}}</h3>   
+    {% else %}
+        <h3 class="card-header">{{article.title | title}}</h3>   
+    {% endif %}
         <img height="350px" class="rounded-circle border border-success m-2" src="{{article.image}}" alt="Card image">
         <div class="card-body">
           <p class="card-text">{{article.intro | capitalize}}</p>
@@ -10,7 +14,8 @@
           </div>
         </div>
         <div class="card-footer text-muted">
-          Il y a 2 jours
+          {{ "now"|date("m/d/Y \\à\\ h:m") }}
         </div>
     </div>
 </div>
+
