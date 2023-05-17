@@ -14,11 +14,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home_page")
      */
-    public function index()
-    {
-        return $this->render('home/index.html.twig', [
-            'truc' => "Page d'accueil",
-        ]);
+    public function index(){
+
+        return $this->render('home/index.html.twig', []);
     }
 
 }
