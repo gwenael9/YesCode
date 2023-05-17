@@ -20,9 +20,39 @@ on ne peux pas coder en dehors de nos blocks car on utlise l'héritage
 
 <h2 class="text-center h1">Les derniers articles</h2>
 
-<div class="row">
+{%
 
-    {% include './partials/card.article.html.twig' %}
+set articles = {
+
+    symfony : {
+        'title' : 'symfony',
+        'intro' : 'symfony est un framework PHP complet',
+        'author' : 'fabien potencier',
+        'image' : 'https://neo7.fr/wp-content/uploads/2018/01/symfony-logo.png'
+    },
+
+    angular : {
+        'title' : 'angular',
+        'intro' : 'angular le framework de Google',
+        'author' : 'angus lard',
+        'image' : 'https://angular.io/assets/images/logos/angular/angular.svg'
+    },
+
+    laravel : {
+        'title' : 'laravel',
+        'intro' : 'laravel est un framework PHP aussi',
+        'author' : 'lara velle',
+        'image' : 'https://jf-blog.fr/wp-content/uploads/2018/07/laravel-logo.png'
+    }
+}
+
+%}
+
+<div class="row flex-lg-row flex-xl-row flex-column">
+
+    {% for article in articles %}
+        {% include './partials/card.article.html.twig' %}
+    {% endfor %}
 
 </div>
 

@@ -1,37 +1,6 @@
-
-{%
-
-set articles = {
-
-    symfony : {
-        'title' : 'symfony',
-        'intro' : 'symfony est un framework PHP complet',
-        'author' : 'fabien potencier',
-        'image' : 'https://neo7.fr/wp-content/uploads/2018/01/symfony-logo.png'
-    },
-
-    angular : {
-        'title' : 'angular',
-        'intro' : 'angular le framework de Google',
-        'author' : 'angus lard',
-        'image' : 'https://angular.io/assets/images/logos/angular/angular.svg'
-    },
-
-    laravel : {
-        'title' : 'laravel',
-        'intro' : 'laravel est un framework PHP aussi',
-        'author' : 'lara velle',
-        'image' : 'https://jf-blog.fr/wp-content/uploads/2018/07/laravel-logo.png'
-    }
-}
-
-%}
-
-{% for article in articles %}
-    
 <div class="col-4">
     <div class="card bg-light my-5 shadow">
-        <h3 class="card-header">{{ article.title | capitalize }}</h3>
+        <h3 class="card-header">{{ article.title | title }}</h3>
         <img height="350px"  src="{{ article.image }}" alt="Card image">
         <div class="card-body">
             <p class="card-text">{{ article.intro | capitalize }}</p>
@@ -46,4 +15,3 @@ set articles = {
     </div>
 </div>
 
-{% endfor %}

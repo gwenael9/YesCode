@@ -4,8 +4,8 @@
 set user = {
 	'firstname' : 'gwenaël',
 	'lastname' : 'guého',
-	'role' : 'Admin',
-	'isConnected' : true	
+	'role' : 'admin',
+	'isConnected' : false	
 }
 
 %}
@@ -34,7 +34,7 @@ set user = {
 						
 			<ul class="navbar-nav ml-auto">
 
-			{% if user.isConnected == true %}
+			{% if user.isConnected %}
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-user"></i>
@@ -43,20 +43,21 @@ set user = {
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="#">Mon Profil</a>
 						<a class="dropdown-item" href="#">Mes articles</a>
-						{% if user.role == 'Admin' %}
+						{% if user.role == 'admin' %}
 							<a class="dropdown-item" href="#">Espace {{user.role}}</a>
 						{% endif %}
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">Déconnexion</a>
 					</div>
 				</li>
-
 			{% else %}
-				<li class="nav-item">
+				<li class="nav-item mx-3">
 					<a class="nav-link"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-user-plus"></i>
 						inscription
-				<li class="nav-item">	
+					</a>
+				</li>
+				<li class="nav-item mx-3">
 					<a class="nav-link"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="fas fa-sign-in-alt"></i>
 						connexion
