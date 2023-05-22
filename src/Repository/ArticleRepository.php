@@ -39,6 +39,23 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+
+    /**
+     * Renvoie les n dernier article
+     * 
+     * @param int $number le nombre d'articles voulues
+     * @return array renvoie un tableau
+     */
+    public function findLastArticles($nombre){
+
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults($nombre)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
@@ -63,4 +80,5 @@ class ArticleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }
