@@ -2,14 +2,49 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+use ORM\PreUpdate;
+use ORM\PrePersist;
+use Cocur\Slugify\Slugify;
+use ORM\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Article
 {
+
+    /**
+     * Génére un slug automatiquement
+     * 
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initSlug(){
+        if(empty($this->slug) ) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->getTitle(). time(). hash("sha1", $this->getIntro()));
+        }
+    }
+
+    /**
+     * Génére la date auto
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function updateDate(){
+        if(empty($this->createdAt)) {
+            $this->createdAt = new \DateTime();
+        }
+    }
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,6 +76,11 @@ class Article
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function getId(): ?int
     {
@@ -103,6 +143,18 @@ class Article
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

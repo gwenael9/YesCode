@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Repository\ArticleRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Faker;
 
 class HomeController extends AbstractController
 {
@@ -16,10 +15,11 @@ class HomeController extends AbstractController
      */
     public function index(ArticleRepository $repo){
 
+        $articles = $repo->findLastArticles(3);
+
         return $this->render('home/index.html.twig', [
-            'articles' => $repo->findLastArticles(3),
+            'articles' => $articles
         ]);
     }
 
-    
 }
