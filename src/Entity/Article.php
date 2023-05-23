@@ -70,7 +70,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Image;
+    private $image;
 
     /**
      * @ORM\Column(type="datetime")
@@ -125,12 +125,12 @@ class Article
 
     public function getImage(): ?string
     {
-        return $this->Image;
+        return $this->image;
     }
 
-    public function setImage(string $Image): self
+    public function setImage(string $image): self
     {
-        $this->Image = $Image;
+        $this->image = $image;
 
         return $this;
     }

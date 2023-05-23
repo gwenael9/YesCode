@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +23,38 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/articles/new", name="article_create")
+     */
+    public function create(Request $request, EntityManagerInterface $manager) {
+
+        $article = new Article();
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        // attrape la requête
+        $form->handleRequest($request);
+
+        // si le formulaire est complet et envoyé
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($article);
+            $manager->flush();
+
+            // quand on va ajouter l'article, on aura un container success sous la nav
+            $this->addFlash('success', "L'article <strong> {$article->getTitle()}</strong> a bien été crée");
+
+            // redirection vers l'article déposé
+            return $this->redirectToRoute('article_show', [
+                'slug' => $article->getSlug()
+            ]);
+        }
+
+        return $this->render('article/create.html.twig', [
+            // createView est une méthode
+            'form' => $form->createView()
+        ]);
+    }
+
     // va nous permettre d'afficher une nouvelle page présentant notre article
     /**
      * @Route("/articles/{slug}", name="article_show")
@@ -31,4 +67,5 @@ class ArticleController extends AbstractController
             'article' => $article
         ]);
     }
+
 }
