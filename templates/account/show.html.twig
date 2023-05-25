@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{user.firstname}} {{user.lastname}}{% endblock %}
+
+{% block body %}
+
+<div class="shadow border p-5 my-5">
+    <h1 class="mb-5 text-center">{{user.firstname}} {{user.lastname}}</h1>
+    <img width="550" class="img-fluid m-auto shadow border d-block" src="{{user.avatar}}" alt="Photo de l'user {{user.firstname}}">
+    <div class="p-5">
+        <hr>
+        {{user.presentation | raw}}
+        <hr>
+    </div>
+    <div class="mb-5">
+        <a href="{{ path('account_edit' , {'slug': user.slug } ) }}" class="btn btn-warning ">
+            Modifer l'user
+            <i class="fa fa-pen"></i>    
+        </a>
+        <a href="{{ path('account_delete' , {'slug': user.slug } ) }}" class="btn btn-danger">
+            Supprimer l'user
+            <i class="fa fa-trash"></i>    
+        </a>    
+    </div>
+    <hr>
+    <p class="h3 text-center p-2">
+        Soyez le premier à <span class="text-primary">commenter</span> !
+        <br>
+        <i class="fa fa-comments my-2"></i>
+    </p>
+</div>
+
+{% endblock %}

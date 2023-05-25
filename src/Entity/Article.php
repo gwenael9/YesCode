@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use ORM\PreUpdate;
 use ORM\PrePersist;
-use Cocur\Slugify\Slugify;
+use Cocur\Slugify\Slugify; 
 use ORM\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
@@ -54,26 +55,43 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message= "Veuillez renseigner un titre !")
+     * @Assert\Length(
+     * min=5, 
+     * minMessage="Veuillez avoir au moins {{ limit }} caractères !",
+     * max=255, 
+     * maxMessage="Plus de {{ limit }} caractères, ce n'est plus un titre !"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message= "Veuillez renseigner une introduction")
+     * @Assert\Length(
+     * min=20, 
+     * minMessage="Minimun {{ limit }} caractères !",
+     * max=255,
+     * maxMessage="Plus de {{ limit }} caractères, ce n'est plus une intro !"
+     * )
      */
     private $intro;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message= "Ce champs ne peux pas être vide !")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message= "Ceci n'est pas une url !")
      */
     private $image;
 
     /**
      * @ORM\Column(type="datetime")
+     
      */
     private $createdAt;
 

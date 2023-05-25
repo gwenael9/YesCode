@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1 class="my-5 text-center">Nos utilisateurs</h1>
+
+    <table class="table table-hover border text-center">
+
+          <thead class="table-primary">
+            <tr>
+              <th>Avatar</th>
+              <th>Nom complet</th>
+              <th>email</th>
+              <th colspan="2">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>    
+            {% for user in users %}
+            <tr class="table">        
+                <td><img width="60px" class="rounded-circle border" src="{{user.avatar}}" alt="Card image"></td>
+                <td>{{user.fullname}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                  <a href="{{ path('account_profil' , {'slug': user.slug } ) }}" class="btn btn-primary rounded"><i class="fa fa-eye"></i></a>
+                </td>
+                <td>
+                  <form class="d-inline" action="{{ path('account_delete' , {'slug': user.slug } ) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?');">
+                    <button class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </form>
+                </td>            
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

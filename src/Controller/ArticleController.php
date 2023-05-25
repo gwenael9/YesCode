@@ -59,13 +59,57 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{slug}", name="article_show")
      */
-    public function show($slug, ArticleRepository $repo)
-    {
+    public function show($slug, ArticleRepository $repo) {
+
         $article = $repo->findOneBySlug($slug);
 
         return $this->render('article/show.html.twig', [
             'article' => $article
         ]);
     }
+
+    /**
+     * @Route("articles/{slug}/edit", name="article_edit")
+     */
+    public function edit($slug, Request $request, EntityManagerInterface $manager, ArticleRepository $repo) {
+        
+        $article = $repo->findOneBySlug($slug);
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash('info', "L'article <strong>{$article->getTitle()}</strong> a bien été modifié.");
+
+            return $this->redirectToRoute('article_show', [ 
+                'slug' => $article->getSlug()
+            ]);
+        }
+
+        return $this->render('article/edit.html.twig', [
+            'article' => $article,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/articles/{slug}/delete", name="article_delete")
+     */
+    public function delete($slug, EntityManagerInterface $manager, ArticleRepository $repo) {
+
+        $article = $repo->findOneBySlug($slug);
+
+        $manager->remove($article);
+        $manager->flush();
+
+        $this->addFlash('danger', "L'article est supprimé");        
+            
+        return $this->redirectToRoute('articles_index');
+    
+    }
+
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Article;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -11,7 +12,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager) {
 
-        $faker = Factory::create();
+        $faker = Factory::create("fr_FR");
 
         // Gestion de nos articles
         // pour modifier qlq chose, on doit finir par faire : php bin/console doctrine:fixtures:load
@@ -33,7 +34,31 @@ class AppFixtures extends Fixture
  
             $manager->persist($article);
         }
-            
+
+        $genres = ['male', 'female'];
+
+        // Gestion de nos utilisateurs
+        for ($i=0; $i <= 20 ; $i++) { 
+
+            $user = new User();
+
+            $genre = $faker->randomElement($genres);
+
+            $picture = 'https://randomuser.me/api/portraits/';
+            $picturesId = $faker->numberBetween(1,99) . '.jpg';
+
+            $picture .= ($genre == 'male' ? 'men/' : 'women/') . $picturesId;
+
+            $user->setFirstname($faker->firstname($genre))
+                 ->setLastname($faker->lastname)
+                 ->setEmail($faker->email)
+                 ->setAvatar($picture)
+                 ->setPresentation($faker->sentence())
+                 ->setHash("password");
+
+            $manager->persist($user);
+        }
+
         $manager->flush();
     } 
 }

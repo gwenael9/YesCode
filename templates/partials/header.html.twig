@@ -5,7 +5,7 @@ set user = {
 	'firstname' : 'gwenaël',
 	'lastname' : 'guého',
 	'role' : 'admin',
-	'isConnected' : true	
+	'isConnected' : false	
 }
 
 %}
@@ -30,6 +30,18 @@ set user = {
 						Articles
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path("users_list")}}">
+						<i class="fa fa-user"></i>						
+						Utilisateurs
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path("article_create")}}">
+						<i class="fa fa-pen"></i>
+						Ecrire un article
+					</a>
+				</li>
 			</ul>
 						
 			<ul class="navbar-nav ml-auto">
@@ -42,6 +54,7 @@ set user = {
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="#">Mon Profil</a>
+						<a class="dropdown-item" href="{{ path('article_create')}}">Ecrire un article</a>
 						<a class="dropdown-item" href="#">Mes articles</a>
 						{% if user.role == 'admin' %}
 							<a class="dropdown-item" href="#">Espace {{user.role}}</a>
@@ -52,9 +65,9 @@ set user = {
 				</li>
 			{% else %}
 				<li class="nav-item mx-3">
-					<a class="nav-link"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link"  href="{{ path('account_create') }}" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-user-plus"></i>
-						inscription
+						Inscription
 					</a>
 				</li>
 				<li class="nav-item mx-3">
