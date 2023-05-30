@@ -28,6 +28,50 @@
         <br>
         <i class="fa fa-comments my-2"></i>
     </p>
+    <hr>
+
+{% if user.articles | length > 0 %}
+
+	<h2 class="my-5">Mes articles en lignes</h2>
+        <div class="row flex-lg-row flex-xl-row flex-column border bg-light">
+
+            
+            <table class="table text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Action</th>                
+                    </tr>
+                </thead>
+                <tbody>
+                {% for article in user.articles %}
+                <tr class="table">
+                    <td class="text-primary">{{article.title}}</td>
+                    <td>{{article.intro | capitalize}}</td>
+                    <td>
+                        <a href="{{ path('article_show', {'slug':article.slug}) }}" class="btn btn-primary rounded">Lire la suite</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            
+
+		</div>
+
+{% else %}
+
+    <div class="border text-center bg-light my-5">
+        <h2 class="my-5">Vous n'avez pas encore publié d'article !</h2>
+        <a class="nav-link text-center h2" href="{{ path('article_create') }}">
+            <i class="fa fa-pen fa-1.5x"></i>
+                Ecrire un article
+        </a>
+    </div>
+
+{% endif %}
+
 </div>
 
 {% endblock %}

@@ -13,7 +13,8 @@
               <th>Avatar</th>
               <th>Nom complet</th>
               <th>email</th>
-              <th colspan="2">Action</th>
+              <th>articles publiés</th>
+              <th colspan="2">Actions</th>
             </tr>
           </thead>
 
@@ -23,6 +24,7 @@
                 <td><img width="60px" class="rounded-circle border" src="{{user.avatar}}" alt="Card image"></td>
                 <td>{{user.fullname}}</td>
                 <td>{{user.email}}</td>
+                <td>{{user.articles | length}}</td>
                 <td>
                   <a href="{{ path('account_profil' , {'slug': user.slug } ) }}" class="btn btn-primary rounded"><i class="fa fa-eye"></i></a>
                 </td>

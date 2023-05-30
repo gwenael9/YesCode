@@ -4,12 +4,17 @@
 
         <h3 class="card-header">{{article.title | title}}</h3>   
         <img height="350px" class="rounded-circle border border-success m-2" src="{{article.image}}" alt="Card image">
+        
         <div class="card-body">
           <p class="card-text">{{article.intro | capitalize}}</p>
           <a href="{{ path('article_show', {'slug':article.slug}) }}" class="btn btn-primary rounded">Lire la suite</a>
+
           <div class="my-3">
-              <a href="#" class="card-link">gwen</a>
+              <a href="{{ path('account_profil', {'slug':article.author.slug}) }}" class="card-link">
+                {{article.author.fullname}}
+              </a>
           </div>
+          
         </div>
         <div class="card-footer text-muted">
           {{ article.createdAt | date("d/m/Y à H:i") }}
