@@ -12,6 +12,9 @@
         {{user.presentation | raw}}
         <hr>
     </div>
+
+    {# seulement l'utilisateur peux supprimer ou modifier son compte #}
+    {% if user is same as(app.user) %}
     <div class="mb-5">
         <a href="{{ path('account_edit' , {'slug': user.slug } ) }}" class="btn btn-warning ">
             Modifer l'user
@@ -22,6 +25,8 @@
             <i class="fa fa-trash"></i>    
         </a>    
     </div>
+    {% endif %}
+
     <hr>
     <p class="h3 text-center p-2">
         Soyez le premier à <span class="text-primary">commenter</span> !

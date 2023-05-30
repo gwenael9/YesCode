@@ -14,7 +14,7 @@
               <th>Nom complet</th>
               <th>email</th>
               <th>articles publiés</th>
-              <th colspan="2">Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -27,14 +27,7 @@
                 <td>{{user.articles | length}}</td>
                 <td>
                   <a href="{{ path('account_profil' , {'slug': user.slug } ) }}" class="btn btn-primary rounded"><i class="fa fa-eye"></i></a>
-                </td>
-                <td>
-                  <form class="d-inline" action="{{ path('account_delete' , {'slug': user.slug } ) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?');">
-                    <button class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </form>
-                </td>            
+                </td>         
             </tr>
             {% endfor %}
           </tbody>

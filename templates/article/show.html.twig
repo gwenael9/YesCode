@@ -12,16 +12,21 @@
         {{article.content | raw}}
         <hr>
     </div>
-    <div class="mb-5">
-        <a href="{{ path('article_edit', {'slug':article.slug}) }}" class="btn btn-warning ">
-            Modifer l'article
-            <i class="fa fa-pen"></i>    
-        </a>
-        <a href="{{ path('article_delete', {'slug':article.slug}) }}" class="btn btn-danger">
-            Supprimer l'article
-            <i class="fa fa-trash"></i>    
-        </a>    
-    </div>
+
+    {# seulement l'auteur peut modifier ou supprimer son article #}
+    {% if app.user and app.user == article.author %}
+        <div class="mb-5">
+            <a href="{{ path('article_edit', {'slug':article.slug}) }}" class="btn btn-warning ">
+                Modifer l'article
+                <i class="fa fa-pen"></i>    
+            </a>
+            <a href="{{ path('article_delete', {'slug':article.slug}) }}" class="btn btn-danger">
+                Supprimer l'article
+                <i class="fa fa-trash"></i>    
+            </a>    
+        </div>
+    {% endif %}
+    
     <p class="text-right font-italic">Ecris le : {{article.createdAt | date('d/m/Y à H:i')}}</p>
     <hr>
     <p class="h3 text-center p-2">
