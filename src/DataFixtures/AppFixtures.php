@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Article;
 use Doctrine\Persistence\ObjectManager;
@@ -21,6 +22,21 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager) {
 
         $faker = Factory::create("fr_FR");
+
+
+        $adminRole = new Role();
+        $adminRole->setTitle("ROLE_ADMIN");
+        $manager->persist($adminRole);
+        
+        $adminUser = new User();
+        $adminUser->setFirstname("Amar")
+                  ->setLastname("Admin")
+                  ->setEmail("admin@admin.com")
+                  ->setHash($this->encoder->hashPassword($adminUser,"password"))
+                  ->setAvatar("https://cdn.shopify.com/s/files/1/0483/5613/0972/products/product-image-1707536406.jpg?v=1617904539")
+                  ->setPresentation("Moi un User pas comme les autres...fixtures")
+                  ->addUserRole($adminRole);
+        $manager->persist($adminUser);
 
         $users = [];
         $genres = ['male', 'female'];
@@ -76,3 +92,4 @@ class AppFixtures extends Fixture
         $manager->flush();
     } 
 }
+
