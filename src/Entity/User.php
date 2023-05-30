@@ -9,10 +9,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ * fields= {"email"},
+ * message= "Adresse email déjà utilisée, merci d'en utiliser une autre."
+ * )
  */
 class User implements UserInterface
 {

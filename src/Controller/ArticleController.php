@@ -37,6 +37,9 @@ class ArticleController extends AbstractController
 
         // si le formulaire est complet et envoyé
         if($form->isSubmitted() && $form->isValid()) {
+
+            $article->setAuthor($this->getUser());
+            
             $manager->persist($article);
             $manager->flush();
 

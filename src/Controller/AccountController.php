@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
@@ -123,7 +124,8 @@ class AccountController extends AbstractController
         dump($error, $username);
         
         return $this->render('account/login.html.twig', [
-
+            'hasError' => $error !== null,
+            'username' => $username
         ]);
     }
 
